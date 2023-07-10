@@ -1,0 +1,45 @@
+class Question:
+    def __init__(self, text, choices, answer):
+        self.text = text
+        self.choices = choices
+        self.answer = answer
+
+    def check_answer(self, user_answer):
+        return user_answer == self.answer
+
+
+class Quiz:
+    def __init__(self, questions):
+        self.questions = questions
+        self.score = 0
+
+    def run_quiz(self):
+        for question in self.questions:
+            print(question.text)
+            for i, choice in enumerate(question.choices):
+                print(f"{i + 1}. {choice}")
+
+            user_answer = int(input("Enter your answer (1, 2, 3, 4): "))
+            if question.check_answer(user_answer):
+                self.score += 1
+
+        self.display_score()
+
+    def display_score(self):
+        total_questions = len(self.questions)
+        percentage = (self.score / total_questions) * 100
+        print(f"You scored {self.score}/{total_questions}. ({percentage}%)")
+
+# Create questions
+question1 = Question("What is the capital of France?",
+                     ["London", "Paris", "Berlin", "Madrid"], 2)
+question2 = Question("Who is the author of 'Harry Potter' series?",
+                     ["J.R.R. Tolkien", "J.K. Rowling", "Stephen King", "George Orwell"], 2)
+question3 = Question("What is the largest planet in our solar system?",
+                     ["Mars", "Jupiter", "Earth", "Saturn"], 2)
+
+# Create quiz and add questions
+quiz = Quiz([question1, question2, question3])
+
+# Run the quiz
+quiz.run_quiz()
